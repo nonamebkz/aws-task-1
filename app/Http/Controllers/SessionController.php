@@ -28,7 +28,11 @@ class SessionController extends Controller
         ];
 
         if (Auth::attempt($infoLogin)) {
-            return redirect('/order')->with('success', 'ok login');
+            if (Auth::user()->email=="admin@admin.com"){
+                return redirect('/listorder')->with('success', Auth::user()->name . ' Berhasil Login');
+            }else{
+                return redirect('/serve')->with('success', Auth::user()->name . ' Berhasil Login');
+            }
         } else {
             return redirect('login')->withErrors('username and password not valid');
 
@@ -70,7 +74,11 @@ class SessionController extends Controller
         ];
 
         if (Auth::attempt($infoLogin)) {
-            return redirect('/order')->with('success', Auth::user()->name . ' Berhasil Login');
+            if (Auth::user()->email=="admin@admin.com"){
+                return redirect('/listorder')->with('success', Auth::user()->name . ' Berhasil Login');
+            }else{
+                return redirect('/serve')->with('success', Auth::user()->name . ' Berhasil Login');
+            }
         } else {
             return redirect('login')->withErrors('username and password not valid');
         }
