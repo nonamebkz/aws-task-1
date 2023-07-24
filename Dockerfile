@@ -8,8 +8,8 @@ RUN apk add --no-cache libpng-dev libpng zip libzip-dev linux-headers
 
 RUN docker-php-ext-install gd zip pdo pdo_mysql sockets
 
-RUN curl -sS [https://getcomposer.org/installer](https://getcomposer.org/installer%E2%80%8B) | php -- \
-     --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- \
+     --install-dir=/usr/local/bin --filename=composer \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
