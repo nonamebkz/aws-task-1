@@ -33,7 +33,6 @@ class ServiceController extends Controller
         $foto_ext = $foto_file->extension();
         $foto_nama = date('ymdhis') . "." . $foto_ext;
         $foto_file->move(public_path('service_image'), $foto_nama);
-        Storage::put($foto_nama,"service_image");
 
         //        prepare data
         $data = [
@@ -64,7 +63,7 @@ class ServiceController extends Controller
 
     function update(Request $request, string $id)
     {
-        Storage::put('sample.txt',"service_image");
+        Storage::disk('s3')->put('path/to/file.ext', 'some-content');
 
         $request->validate([
             'service_name' => 'required',
@@ -77,8 +76,6 @@ class ServiceController extends Controller
             $foto_ext = $foto_file->extension();
             $foto_nama = date('ymdhis') . "." . $foto_ext;
             $foto_file->move(public_path('service_image'), $foto_nama);
-//            Storage::put('/',$foto_nama);
-//            echo 'ono';
 
             //            get file name baru hapus
             $data_foto = service::where('id', $id)->first();
