@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -32,6 +33,7 @@ class ServiceController extends Controller
         $foto_ext = $foto_file->extension();
         $foto_nama = date('ymdhis') . "." . $foto_ext;
         $foto_file->move(public_path('service_image'), $foto_nama);
+        Storage::put($foto_nama,"service_image");
 
         //        prepare data
         $data = [
@@ -62,6 +64,8 @@ class ServiceController extends Controller
 
     function update(Request $request, string $id)
     {
+        Storage::put('sample.txt',"service_image");
+
         $request->validate([
             'service_name' => 'required',
             'service_price' => 'required',
@@ -73,6 +77,8 @@ class ServiceController extends Controller
             $foto_ext = $foto_file->extension();
             $foto_nama = date('ymdhis') . "." . $foto_ext;
             $foto_file->move(public_path('service_image'), $foto_nama);
+//            Storage::put('/',$foto_nama);
+//            echo 'ono';
 
             //            get file name baru hapus
             $data_foto = service::where('id', $id)->first();
