@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -52,6 +53,7 @@ class ServiceController extends Controller
     function getDetail($id)
     {
         $data = service::where('id', $id)->first();
+Cache::put($id,$data,120);
         return view('service/show') -> with('data', $data);
     }
 
