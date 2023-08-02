@@ -40,18 +40,18 @@
                    placeholder="service_price"
                    value="{{$data->service_price}}">
         </div>
-        @if($data->service_image)
-            <div class="mb-3">
-                <img style="max-width: 50px;max-height: 50px" src="{{url('service_image').'/'.$data->service_image}}">
-            </div>
-        @endif
-        <div class="mb-3">
-            <label for="foto" class="form-label">Service Image</label>
-            <input type="file"
-                   class="form-control"
-                   id="service_image"
-                   name="service_image">
-        </div>
+{{--        @if($data->service_image)--}}
+{{--            <div class="mb-3">--}}
+{{--                <img style="max-width: 50px;max-height: 50px" src="{{url('images').'/'.$data->service_image}}">--}}
+{{--            </div>--}}
+{{--        @endif--}}
+{{--        <div class="mb-3">--}}
+{{--            <label for="foto" class="form-label">Service Image</label>--}}
+{{--            <input type="file"--}}
+{{--                   class="form-control"--}}
+{{--                   id="service_image"--}}
+{{--                   name="service_image">--}}
+{{--        </div>--}}
         <div class="mb-3">
             <button type="submit" class="btn btn-primary">UPDATE</button>
         </div>

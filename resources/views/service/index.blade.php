@@ -6,7 +6,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Picture</th>
+{{--            <th>Picture</th>--}}
             <th>Service Name</th>
             <th>Service Description</th>
             <th>Action</th>
@@ -15,10 +15,10 @@
         <tbody>
         @foreach($data as $item)
             <tr>
-                <td>@if($item->service_image)
-                        <img style="max-width: 50px;max-height: 50px"
-                             src="{{url('service_image').'/'.$item->service_image  }}">
-                    @endif</td>
+{{--                <td>@if($item->service_image)--}}
+{{--                        <img style="max-width: 50px;max-height: 50px"--}}
+{{--                             src="{{url('images').'/'.$item->service_image  }}">--}}
+{{--                    @endif</td>--}}
                 <td>{{$item->service_name}}</td>
                 <td>{{$item->service_description}}</td>
                 <td>

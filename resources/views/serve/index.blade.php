@@ -6,8 +6,8 @@
         @foreach($data as $item)
             <div class="col-md-4" style="padding: 10px">
                 <div class="card">
-                    <img style="max-width: 50%;max-height: 50%" src="{{url('service_image').'/'.$item->service_image}}"
-                         class="card-img-top" alt="Service Image">
+{{--                    <img style="max-width: 50%;max-height: 50%" src="{{url('images').'/'.$item->service_image}}"--}}
+{{--                         class="card-img-top" alt="Service Image">--}}
                     <div class="card-body">
                         <h5 class="card-title">{{$item->service_name}}</h5>
                         <p class="card-text">{{$item->service_description}}</p>

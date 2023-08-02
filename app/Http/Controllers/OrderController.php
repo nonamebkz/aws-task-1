@@ -53,7 +53,7 @@ class OrderController extends Controller
         $foto_file = $request->file('foto');
         $foto_ext = $foto_file->extension();
         $foto_nama = date('ymdhis') . "." . $foto_ext;
-        $foto_file->move(public_path('foto'), $foto_nama);
+//        $foto_file->move(public_path('foto'), $foto_nama);
 
         $data = [
             'order_no' => $request->input('order_no'),
@@ -104,11 +104,11 @@ class OrderController extends Controller
             $foto_file = $request->file('foto');
             $foto_ext = $foto_file->extension();
             $foto_nama = date('ymdhis') . "." . $foto_ext;
-            $foto_file->move(public_path('foto'), $foto_nama);
+//            $foto_file->move(public_path('foto'), $foto_nama);
 
 //            get file name baru hapus
-            $data_foto = order::where('order_no', $id)->first();
-            File::delete(public_path('foto') . '/' . $data_foto->foto);
+//            $data_foto = order::where('order_no', $id)->first();
+//            File::delete(public_path('foto') . '/' . $data_foto->foto);
             $data = [
                 'foto' => $foto_nama
             ];
@@ -124,8 +124,8 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = order::where('order_no', $id)->first();
-        File::delete(public_path('foto') . '/' . $data->foto);
+//        $data = order::where('order_no', $id)->first();
+//        File::delete(public_path('foto') . '/' . $data->foto);
         order::where('order_no', $id)->delete();
         return redirect('/order')->with('success', 'oke delete');
     }

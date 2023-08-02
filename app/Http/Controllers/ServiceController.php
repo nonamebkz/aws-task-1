@@ -33,7 +33,8 @@ class ServiceController extends Controller
         $foto_file = $request->file('service_image');
         $foto_ext = $foto_file->extension();
         $foto_nama = date('ymdhis') . "." . $foto_ext;
-        $foto_file->move(public_path('service_image'), $foto_nama);
+//        Storage::disk('s3')->put('images/joko.txt', "okjee");
+//        $foto_file->move(public_path('images'), $foto_nama);
 
         //        prepare data
         $data = [
@@ -53,7 +54,8 @@ class ServiceController extends Controller
     function getDetail($id)
     {
         $data = service::where('id', $id)->first();
-Cache::put($id,$data,120);
+//        Cache::driver('dynamodb')->put();
+//Cache::put($id,$data,120);
         return view('service/show') -> with('data', $data);
     }
 
@@ -77,11 +79,11 @@ Cache::put($id,$data,120);
             $foto_file = $request->file('service_image');
             $foto_ext = $foto_file->extension();
             $foto_nama = date('ymdhis') . "." . $foto_ext;
-            $foto_file->move(public_path('service_image'), $foto_nama);
+//            $foto_file->move(public_path('images'), $foto_nama);
 
             //            get file name baru hapus
-            $data_foto = service::where('id', $id)->first();
-            File::delete(public_path('service_image') . '/' . $data_foto->service_image);
+//            $data_foto = service::where('id', $id)->first();
+//            File::delete(public_path('images') . '/' . $data_foto->service_image);
 
         }
 
@@ -99,8 +101,8 @@ Cache::put($id,$data,120);
 
     function delete($id)
     {
-        $data = service::where('id', $id)->first();
-        File::delete(public_path('service_image') . '/' . $data->service_image);
+//        $data = service::where('id', $id)->first();
+//        File::delete(public_path('images') . '/' . $data->service_image);
         service::where('id', $id)->delete();
         return redirect('service')->with('success', 'success delete data');
     }

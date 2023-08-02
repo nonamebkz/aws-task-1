@@ -1,43 +1,99 @@
 service: laravel
 
 provider:
-    name: aws
-    # The AWS region in which to deploy (us-east-1 is the default)
-    region: us-east-1
-    # Environment variables
-    environment:
-        APP_ENV: production # Or use ${sls:stage} if you want the environment to match the stage
+  name: aws
+  # The AWS region in which to deploy (us-east-1 is the default)
+  region: ap-southeast-2
+  # Environment variables
+  environment:
+    APP_ENV: production # Or use ${sls:stage} if you want the environment to match the stage
+    DB_HOST: database-1.cq1dsfc1al7v.ap-southeast-2.rds.amazonaws.com
+    DB_DATABASE: laravel
+    DB_PORT: 3306
+    DB_USERNAME: admin
+    DB_PASSWORD: password2023
+    FILESYSTEM_DISK: s3
+    FILESYSTEM_DISK_PUBLIC: s3
+    AWS_BUCKET: image-storage-laravel
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: s3:*
+          Resource:
+            - !Sub '${Storage.Arn}' # the storage bucket
+            - !Sub '${Storage.Arn}/*' # and everything inside
+
+  vpc:
+    securityGroupIds:
+      - sg-00b9edd818f8d9494
+    subnetIds:
+      - subnet-0a968af05980aefdf
+      - subnet-0ab1c1c2a5d392a65
+      - subnet-0b9e0dde7d57d5806
+
+resources:
+  Resources:
+    Storage:
+      Type: AWS::S3::Bucket
+
 
 package:
-    # Files and directories to exclude from deployment
-    patterns:
-        - '!node_modules/**'
-        - '!public/storage'
-        - '!resources/assets/**'
-        - '!storage/**'
-        - '!tests/**'
+  # Files and directories to exclude from deployment
+  patterns:
+    - '!node_modules/**'
+    - '!public/storage'
+    - '!resources/assets/**'
+    - '!storage/**'
+    - '!tests/**'
 
 functions:
 
-    # This function runs the Laravel website/API
-    web:
-        handler: public/index.php
-        runtime: php-81-fpm
-        timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
-        events:
-            - httpApi: '*'
+  # This function runs the Laravel website/API
+  web:
+    handler: public/index.php
+    runtime: php-81-fpm
+    timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
+    events:
+      - httpApi: '*'
 
-    # This function lets us run artisan commands in Lambda
-    artisan:
-        handler: artisan
-        runtime: php-81-console
-        timeout: 720 # in seconds
-        # Uncomment to also run the scheduler every minute
-        #events:
-        #    - schedule:
-        #          rate: rate(1 minute)
-        #          input: '"schedule:run"'
+  # This function lets us run artisan commands in Lambda
+  artisan:
+    handler: artisan
+    runtime: php-81-console
+    timeout: 720 # in seconds
+    # Uncomment to also run the scheduler every minute
+    #events:
+    #    - schedule:
+    #          rate: rate(1 minute)
+    #          input: '"schedule:run"'
 
 plugins:
-    # We need to include the Bref plugin
-    - ./vendor/bref/bref
+  - ./vendor/bref/bref
+  - serverless-lift
+
+#    VPC
+#    vpc-03543d9087d4457d9
+#    Subnet group
+#    default-vpc-03543d9087d4457d9
+#    Subnets
+#    subnet-0a968af05980aefdf
+#    subnet-0ab1c1c2a5d392a65
+#    subnet-0b9e0dde7d57d5806
+
+constructs:
+  website:
+    type: server-side-website
+    assets:
+      '/css/*': public/css
+      '/fonts/*': public/fonts
+      '/images/*': public/images
+      '/img/*': public/img
+      '/js/*': public/js
+#    forwardedHeaders:
+#      - Accept
+#      - Accept-Language
+#      - X-Forwarded-Host
+#      - X-Requested-With
+#      - X-Xsrf-Token
+#      - X-Livewire
