@@ -14,7 +14,6 @@ provider:
     DB_PASSWORD: password2023
     FILESYSTEM_DISK: s3
     FILESYSTEM_DISK_PUBLIC: s3
-    AWS_BUCKET: image-storage-laravel
   iam:
     role:
       statements:
