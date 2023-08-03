@@ -12,16 +12,6 @@ provider:
     DB_PORT: 3306
     DB_USERNAME: admin
     DB_PASSWORD: password2023
-    FILESYSTEM_DISK: s3
-    FILESYSTEM_DISK_PUBLIC: s3
-  iam:
-    role:
-      statements:
-        - Effect: Allow
-          Action: s3:*
-          Resource:
-            - !Sub '${Storage.Arn}' # the storage bucket
-            - !Sub '${Storage.Arn}/*' # and everything inside
 
   vpc:
     securityGroupIds:
@@ -30,11 +20,6 @@ provider:
       - subnet-0a968af05980aefdf
       - subnet-0ab1c1c2a5d392a65
       - subnet-0b9e0dde7d57d5806
-
-resources:
-  Resources:
-    Storage:
-      Type: AWS::S3::Bucket
 
 
 package:

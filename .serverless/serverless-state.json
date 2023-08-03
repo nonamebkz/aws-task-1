@@ -13,30 +13,7 @@
         "DB_DATABASE": "laravel",
         "DB_PORT": "3306",
         "DB_USERNAME": "admin",
-        "DB_PASSWORD": "password2023",
-        "FILESYSTEM_DISK": "s3",
-        "FILESYSTEM_DISK_PUBLIC": "s3",
-        "AWS_BUCKET": "image-storage-laravel"
-      },
-      "iam": {
-        "role": {
-          "statements": [
-            {
-              "Effect": "Allow",
-              "Action": [
-                "s3:*"
-              ],
-              "Resource": [
-                {
-                  "Fn::Sub": "${Storage.Arn}"
-                },
-                {
-                  "Fn::Sub": "${Storage.Arn}/*"
-                }
-              ]
-            }
-          ]
-        }
+        "DB_PASSWORD": "password2023"
       },
       "vpc": {
         "securityGroupIds": [
@@ -193,9 +170,6 @@
                             "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/laravel-dev*:*:*"
                           }
                         ]
-                      },
-                      {
-                        "$ref": "$[\"service\"][\"provider\"][\"iam\"][\"role\"][\"statements\"][0]"
                       }
                     ]
                   }
@@ -238,7 +212,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/laravel/dev/1690734342778-2023-07-30T16:25:42.778Z/laravel.zip"
+                "S3Key": "serverless/laravel/dev/1691072329450-2023-08-03T14:18:49.450Z/laravel.zip"
               },
               "Handler": "public/index.php",
               "Runtime": "provided.al2",
@@ -252,10 +226,7 @@
                   "DB_DATABASE": "laravel",
                   "DB_PORT": "3306",
                   "DB_USERNAME": "admin",
-                  "DB_PASSWORD": "password2023",
-                  "FILESYSTEM_DISK": "s3",
-                  "FILESYSTEM_DISK_PUBLIC": "s3",
-                  "AWS_BUCKET": "image-storage-laravel"
+                  "DB_PASSWORD": "password2023"
                 }
               },
               "Role": {
@@ -287,7 +258,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/laravel/dev/1690734342778-2023-07-30T16:25:42.778Z/laravel.zip"
+                "S3Key": "serverless/laravel/dev/1691072329450-2023-08-03T14:18:49.450Z/laravel.zip"
               },
               "Handler": "artisan",
               "Runtime": "provided.al2",
@@ -301,10 +272,7 @@
                   "DB_DATABASE": "laravel",
                   "DB_PORT": "3306",
                   "DB_USERNAME": "admin",
-                  "DB_PASSWORD": "password2023",
-                  "FILESYSTEM_DISK": "s3",
-                  "FILESYSTEM_DISK_PUBLIC": "s3",
-                  "AWS_BUCKET": "image-storage-laravel"
+                  "DB_PASSWORD": "password2023"
                 }
               },
               "Role": {
@@ -330,24 +298,24 @@
               "ArtisanLogGroup"
             ]
           },
-          "WebLambdaVersioneGHPFJQ4K0iMrkFInCIuyKxUqUWRYIWwHvCez8mzU0": {
+          "WebLambdaVersionWx9jjjSkk12fs2UiMVdavTrwF1uBsh7Os2C3r8BtJE": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "WebLambdaFunction"
               },
-              "CodeSha256": "6V+7Rxx6Rw46TMe4kpa6/6WITN1ji645kPPcQ3r7evM="
+              "CodeSha256": "wMBEnxiW3njQudOCX/khA10/nx3228PBlpEs28KUFkc="
             }
           },
-          "ArtisanLambdaVersioncIzJrRg8XpjPpIWdh8EqcZukw80BYGXUP6DMg411AE": {
+          "ArtisanLambdaVersionOJlxWNe2Xs08C6fjdBohdy3cjqE3wL2Vuo8b8wdPgg": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ArtisanLambdaFunction"
               },
-              "CodeSha256": "6V+7Rxx6Rw46TMe4kpa6/6WITN1ji645kPPcQ3r7evM="
+              "CodeSha256": "wMBEnxiW3njQudOCX/khA10/nx3228PBlpEs28KUFkc="
             }
           },
           "HttpApi": {
@@ -441,9 +409,6 @@
               }
             },
             "DependsOn": "HttpApiIntegrationWeb"
-          },
-          "Storage": {
-            "Type": "AWS::S3::Bucket"
           },
           "websiteAssets2A73BB69": {
             "Type": "AWS::S3::Bucket",
@@ -900,7 +865,7 @@
           "WebLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "WebLambdaVersioneGHPFJQ4K0iMrkFInCIuyKxUqUWRYIWwHvCez8mzU0"
+              "Ref": "WebLambdaVersionWx9jjjSkk12fs2UiMVdavTrwF1uBsh7Os2C3r8BtJE"
             },
             "Export": {
               "Name": "sls-laravel-dev-WebLambdaFunctionQualifiedArn"
@@ -909,7 +874,7 @@
           "ArtisanLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ArtisanLambdaVersioncIzJrRg8XpjPpIWdh8EqcZukw80BYGXUP6DMg411AE"
+              "Ref": "ArtisanLambdaVersionOJlxWNe2Xs08C6fjdBohdy3cjqE3wL2Vuo8b8wdPgg"
             },
             "Export": {
               "Name": "sls-laravel-dev-ArtisanLambdaFunctionQualifiedArn"
@@ -1087,7 +1052,7 @@
         "package": {},
         "memory": 1024,
         "vpc": {},
-        "versionLogicalId": "WebLambdaVersioneGHPFJQ4K0iMrkFInCIuyKxUqUWRYIWwHvCez8mzU0"
+        "versionLogicalId": "WebLambdaVersionWx9jjjSkk12fs2UiMVdavTrwF1uBsh7Os2C3r8BtJE"
       },
       "artisan": {
         "handler": "artisan",
@@ -1101,14 +1066,11 @@
         "package": {},
         "memory": 1024,
         "vpc": {},
-        "versionLogicalId": "ArtisanLambdaVersioncIzJrRg8XpjPpIWdh8EqcZukw80BYGXUP6DMg411AE"
+        "versionLogicalId": "ArtisanLambdaVersionOJlxWNe2Xs08C6fjdBohdy3cjqE3wL2Vuo8b8wdPgg"
       }
     },
     "resources": {
       "Resources": {
-        "Storage": {
-          "Type": "AWS::S3::Bucket"
-        },
         "websiteAssets2A73BB69": {
           "Type": "AWS::S3::Bucket",
           "UpdateReplacePolicy": "Delete",
@@ -1598,30 +1560,7 @@
           "DB_DATABASE": "laravel",
           "DB_PORT": "3306",
           "DB_USERNAME": "admin",
-          "DB_PASSWORD": "password2023",
-          "FILESYSTEM_DISK": "s3",
-          "FILESYSTEM_DISK_PUBLIC": "s3",
-          "AWS_BUCKET": "image-storage-laravel"
-        },
-        "iam": {
-          "role": {
-            "statements": [
-              {
-                "Effect": "Allow",
-                "Action": [
-                  "s3:*"
-                ],
-                "Resource": [
-                  {
-                    "Fn::Sub": "${Storage.Arn}"
-                  },
-                  {
-                    "Fn::Sub": "${Storage.Arn}/*"
-                  }
-                ]
-              }
-            ]
-          }
+          "DB_PASSWORD": "password2023"
         },
         "vpc": {
           "securityGroupIds": [
@@ -1636,13 +1575,6 @@
         "stage": "dev",
         "versionFunctions": true,
         "deploymentMethod": "direct"
-      },
-      "resources": {
-        "Resources": {
-          "Storage": {
-            "Type": "AWS::S3::Bucket"
-          }
-        }
       },
       "package": {
         "patterns": [
@@ -1702,7 +1634,7 @@
     "artifact": "/home/noname/project/labs/task/.serverless/laravel.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/laravel/dev/1690734342778-2023-07-30T16:25:42.778Z",
+    "artifactDirectoryName": "serverless/laravel/dev/1691072329450-2023-08-03T14:18:49.450Z",
     "artifact": "laravel.zip"
   }
 }
