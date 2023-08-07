@@ -31,13 +31,6 @@
                    value="{{Session::get('service_price')}}">
         </div>
         <div class="mb-3">
-            <label for="foto" class="form-label">Picture</label>
-            <input type="file"
-                   class="form-control"
-                   id="service_image"
-                   name="service_image">
-        </div>
-        <div class="mb-3">
             <button type="submit" class="btn btn-primary">SIMPAN</button>
         </div>
     </form>
