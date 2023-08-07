@@ -56,8 +56,6 @@ class ServiceController extends Controller
 
     function update(Request $request, string $id)
     {
-        Storage::disk('s3')->put('path/to/file.ext', 'some-content');
-
         $request->validate([
             'service_name' => 'required',
             'service_price' => 'required',
