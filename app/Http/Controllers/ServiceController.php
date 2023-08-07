@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\serve;
 use App\Models\service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -45,7 +46,7 @@ class ServiceController extends Controller
         $data = service::where('id', $id)->first();
 //        Cache::driver('dynamodb')->put();
 //Cache::put($id,$data,120);
-        return view('service/show') -> with('data', $data);
+        return view('service/show')->with('data', $data);
     }
 
     function getData()
@@ -75,8 +76,11 @@ class ServiceController extends Controller
 
     function delete($id)
     {
-//        $data = service::where('id', $id)->first();
-//        File::delete(public_path('images') . '/' . $data->service_image);
+        serve::where('service_id', $id)->delete();
+        serve::whereNotIn('service_id', function ($query) {
+            $query->select('id')
+                ->from('service');
+        })->delete();
         service::where('id', $id)->delete();
         return redirect('service')->with('success', 'success delete data');
     }
