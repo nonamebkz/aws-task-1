@@ -29,23 +29,12 @@ class ServiceController extends Controller
             'service_price' => 'required',
         ]);
 
-
-        $foto_file = $request->file('service_image');
-        $foto_ext = $foto_file->extension();
-        $foto_nama = date('ymdhis') . "." . $foto_ext;
-//        Storage::disk('s3')->put('images/joko.txt', "okjee");
-//        $foto_file->move(public_path('images'), $foto_nama);
-
         //        prepare data
         $data = [
             'service_name' => $request->service_name,
             'service_description' => $request->service_description,
             'service_price' => $request->service_price,
-            'service_image' => $foto_nama
         ];
-//            get file name baru hapus
-
-//        return $data;
 
         service::create($data);
         return redirect('service')->with('success', 'success add new data');
@@ -75,23 +64,10 @@ class ServiceController extends Controller
         ]);
 
 
-        if ($request->hasFile('service_image')) {
-            $foto_file = $request->file('service_image');
-            $foto_ext = $foto_file->extension();
-            $foto_nama = date('ymdhis') . "." . $foto_ext;
-//            $foto_file->move(public_path('images'), $foto_nama);
-
-            //            get file name baru hapus
-//            $data_foto = service::where('id', $id)->first();
-//            File::delete(public_path('images') . '/' . $data_foto->service_image);
-
-        }
-
         $data = [
             'service_name' => $request->service_name,
             'service_description' => $request->service_description,
             'service_price' => $request->service_price,
-            'service_image' => $foto_nama
         ];
         service::where('id', $id)->update($data);
 
