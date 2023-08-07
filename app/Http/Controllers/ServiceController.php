@@ -35,6 +35,7 @@ class ServiceController extends Controller
             'service_name' => $request->service_name,
             'service_description' => $request->service_description,
             'service_price' => $request->service_price,
+            'service_image' => "",
         ];
 
         service::create($data);
@@ -44,8 +45,6 @@ class ServiceController extends Controller
     function getDetail($id)
     {
         $data = service::where('id', $id)->first();
-//        Cache::driver('dynamodb')->put();
-//Cache::put($id,$data,120);
         return view('service/show')->with('data', $data);
     }
 
